@@ -56,14 +56,9 @@ frappe.ui.form.on('Issue', {
         
                 
 
-        // Display the days difference in the console
-                
-           // frm.set_value('work_duration_', days + " "+ hours + ":"+mins+":"+secs);
-               // frm.set_value('user_resolution_time', "10 1:20:55");
-              
-            // Call the save  
+   
            }
-           var delayTime = 2000;
+           var delayTime = 1000;
            
            setTimeout(function() {
            
@@ -124,7 +119,12 @@ frappe.ui.form.on('Issue', {
             }
         }
     
-        if(frm.doc.status == "Open" && frm.doc.issue_type  !== undefined) {
+    
+            
+        },
+        
+        setup:function(frm){
+                if(frm.doc.status == "Open" && frm.doc.issue_type !== undefined) {
         
              frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);  
             
