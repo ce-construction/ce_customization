@@ -1,9 +1,11 @@
+var count = 0;
+
 frappe.ui.form.on('Issue', {
     
 	after_save:function(frm) {
 	     
-	   if(frm.doc.status === "Open"){
-	       
+	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
+	        count = 0;
 	         frappe.call({
                     method: 'frappe.client.set_value',
                     args: {
@@ -27,9 +29,9 @@ frappe.ui.form.on('Issue', {
 	   }
            
 		// your code here
-		if(frm.doc.status === "Closed"){
+		if(frm.doc.status === "Closed" && count === 0){
                // frm.set_value('resolution_date', frappe.datetime.now_datetime());
-               
+               //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
              
              frappe.call({
                     method: 'frappe.client.set_value',
@@ -56,7 +58,12 @@ frappe.ui.form.on('Issue', {
         
                 
 
-   
+        // Display the days difference in the console
+                
+           // frm.set_value('work_duration_', days + " "+ hours + ":"+mins+":"+secs);
+               // frm.set_value('user_resolution_time', "10 1:20:55");
+              
+            // Call the save  
            }
            var delayTime = 1000;
            
@@ -105,10 +112,19 @@ frappe.ui.form.on('Issue', {
         
    
         onload:function(frm){
+    //      if(frm.doc.status === "Open"){
+    //           frm.set_value('starting_date',frm.doc.opening_date+ " "+ frm.doc.opening_time);
+    //       frm.save();
+    //   }
 	    
             	var fields = frm.fields_dict;
 		
-        if(frm.doc.status == "Closed"){
+        if(frm.doc.status == "Closed" ){
+            // if(frm.doc.resolution_date === undefined){
+            //      frm.set_value('resolution_date',frm.doc.opening_date+ " "+ frm.doc.opening_time);
+            //      frm.save();
+           // }
+           
         // Iterate through the fields
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
@@ -123,17 +139,49 @@ frappe.ui.form.on('Issue', {
             
         },
         
-        setup:function(frm){
-                if(frm.doc.status == "Open" && frm.doc.issue_type !== undefined) {
-        
-             frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);  
+         timeline_refresh:function(frm){
+               if(frm.doc.status == "Open") {
+
+                     frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);  
+                   
+             }
+                  // if(frm.doc.status == "Closed" && frm.doc.resolution_date === undefined){
+                    //frm.set_value('resolution_date', frappe.datetime.now_datetime());
+                   // frm.save();
+               // }
             
-        }
             
+             if(frm.doc.status == "Closed" ){
+                 count = 1;
+            if(frm.doc.resolution_date === undefined){
+                
+                  frappe.call({
+                                method: 'frappe.client.set_value',
+                                args: {
+                                    doctype: frm.doc.doctype,
+                                    name: frm.doc.name,
+                                    fieldname: 'resolution_date',
+                                    value:frm.doc.opening_date+ " "+ frm.doc.opening_time
+                                },
+                        callback: function(response) {
+                            if (response.message) {
+                              console.log("success!");
+                                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
+                          frm.reload_doc();
+                            } else {
+                              console.log("Failed.");
+                            }
+                          }
+                         });
+                 
+            }}
         },
 	refresh:function(frm){
 	    
 	        
+	         
+            
+            
 	    if(frm.doc.opened_by === undefined){
 	    frappe.call({
             method: 'frappe.client.get_value',
@@ -156,6 +204,7 @@ frappe.ui.form.on('Issue', {
 		var fields = frm.fields_dict;
 		
         if(frm.doc.status == "Closed"){
+            
         // Iterate through the fields
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
@@ -166,6 +215,7 @@ frappe.ui.form.on('Issue', {
             }
         }
         else{
+            
             for (var fieldname2 in fields) {
             // Set all fields as read-only 0 except for the specific field
                 if(fieldname2 == 'opening_date' || fieldname2 == 'opening_time'){
