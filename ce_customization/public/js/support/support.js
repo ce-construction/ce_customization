@@ -5,7 +5,7 @@ frappe.ui.form.on('Issue', {
 	after_save:function(frm) {
 	     
 	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
-	        count = 0;
+	        count = 1;
 	         frappe.call({
                     method: 'frappe.client.set_value',
                     args: {
@@ -30,7 +30,31 @@ frappe.ui.form.on('Issue', {
            
 		// your code here
 		if(frm.doc.status === "Closed" && count === 0){
-		    count=1;
+		    
+		    
+		     frappe.call({
+                                method: 'frappe.client.set_value',
+                                args: {
+                                    doctype: frm.doc.doctype,
+                                    name: frm.doc.name,
+                                    fieldname: 'resolution_date',
+                                    value:frm.doc.opening_date+ " "+ frm.doc.opening_time
+                                },
+                        callback: function(response) {
+                            if (response.message) {
+                              console.log("success!");
+                                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
+                          frm.reload_doc();
+                            } else {
+                              console.log("Failed.");
+                            }
+                          }
+                         });
+                         
+		}
+		
+		if(frm.doc.status === "Closed" && count === 1){
+		    
                // frm.set_value('resolution_date', frappe.datetime.now_datetime());
                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
              
@@ -141,42 +165,42 @@ frappe.ui.form.on('Issue', {
         },
         
          timeline_refresh:function(frm){
-               if(frm.doc.status == "Open") {
+            //   if(frm.doc.status == "Open") {
 
-                     frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time); 
-                     count = 0;
+            //          frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time); 
+            //          count = 0;
                    
-             }
-                  // if(frm.doc.status == "Closed" && frm.doc.resolution_date === undefined){
+            //  }
+            //       // if(frm.doc.status == "Closed" && frm.doc.resolution_date === undefined){
                     //frm.set_value('resolution_date', frappe.datetime.now_datetime());
                    // frm.save();
                // }
             
             
-             if(frm.doc.status == "Closed" ){
-                 count = 1;
-            if(frm.doc.resolution_date === undefined){
+            //  if(frm.doc.status == "Closed" ){
+            //      count = 1;
+            // if(frm.doc.resolution_date === undefined){
                 
-                  frappe.call({
-                                method: 'frappe.client.set_value',
-                                args: {
-                                    doctype: frm.doc.doctype,
-                                    name: frm.doc.name,
-                                    fieldname: 'resolution_date',
-                                    value:frm.doc.opening_date+ " "+ frm.doc.opening_time
-                                },
-                        callback: function(response) {
-                            if (response.message) {
-                              console.log("success!");
-                                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
-                          frm.reload_doc();
-                            } else {
-                              console.log("Failed.");
-                            }
-                          }
-                         });
+            //       frappe.call({
+            //                     method: 'frappe.client.set_value',
+            //                     args: {
+            //                         doctype: frm.doc.doctype,
+            //                         name: frm.doc.name,
+            //                         fieldname: 'resolution_date',
+            //                         value:frm.doc.opening_date+ " "+ frm.doc.opening_time
+            //                     },
+            //             callback: function(response) {
+            //                 if (response.message) {
+            //                   console.log("success!");
+            //                     //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
+            //               frm.reload_doc();
+            //                 } else {
+            //                   console.log("Failed.");
+            //                 }
+            //               }
+            //              });
                  
-            }}
+            // }}
         },
 	refresh:function(frm){
 	    
@@ -219,7 +243,7 @@ frappe.ui.form.on('Issue', {
             
             for (var fieldname2 in fields) {
             // Set all fields as read-only 0 except for the specific field
-                if(fieldname2 == 'opening_date' || fieldname2 == 'opening_time'){
+                if(fieldname2 == 'opening_date' || fieldname2 == 'opening_time' || fieldname2 == "opened_by"){
                    frm.set_df_property(fieldname2, 'read_only', 1)}
                 else{
                     frm.set_df_property(fieldname2, 'read_only', 0)
