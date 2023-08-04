@@ -1,5 +1,65 @@
 var count = 0;
 
+
+function DurationText(days, hours, mins,secs){
+    let duration = '';
+    if( days > 1){
+        duration = duration.concat(`${days} days`);
+    }
+    else if( days === 0 ){
+        duration = duration.concat("");
+    }
+    else{
+        duration = duration.concat(`${days} day`);
+    }
+    
+    
+    
+    if( hours > 1){
+        duration = duration.concat(" ",`${hours} hrs`);
+    }
+    else if( hours === 0 ){
+        duration = duration.concat("");
+    }
+    else{
+        duration = duration.concat(" ",`${hours} hr`);
+    }
+    
+    
+     if( mins > 1){
+        duration = duration.concat(" ",`${mins} mins`);
+    }
+    else if( mins === 0 ){
+        duration = duration.concat("");
+    }
+    else{
+        duration = duration.concat(" ",`${mins} min`);
+    }
+    
+    
+     if( secs > 1){
+        duration = duration.concat(" ",`${secs} secs`);
+    }
+    else if( secs === 0 ){
+        duration = duration.concat("");
+    }
+    else{
+        duration = duration.concat(" ",`${secs} sec`);
+    }
+    
+    
+    
+    return duration;
+    
+   
+}
+
+
+
+
+
+
+
 frappe.ui.form.on('Issue', {
     
 	after_save:function(frm) {
@@ -111,13 +171,14 @@ frappe.ui.form.on('Issue', {
                  var mins = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 *60));
                  var secs =Math.floor((timeDifference % (1000 * 60 )) / (1000 ));
                  
-                         frappe.call({
+                
+                       frappe.call({
                                 method: 'frappe.client.set_value',
                                 args: {
                                     doctype: frm.doc.doctype,
                                     name: frm.doc.name,
                                     fieldname: 'work_duration_',
-                                    value:days + " "+ hours + ":"+mins+":"+secs
+                                    value:DurationText(days,hours,mins, secs)   // days + " "+ hours + ":"+mins+":"+secs
                                 },
                         callback: function(response) {
                             if (response.message) {
@@ -128,7 +189,11 @@ frappe.ui.form.on('Issue', {
                               console.log("Failed.");
                             }
                           }
-                         });}},delayTime);
+                         });
+                     
+                 
+                 
+                       }},delayTime);
                          
              
              
