@@ -335,6 +335,20 @@ frappe.ui.form.on('Issue', {
         });//}
 	}
 	
-})
+});
 
+frappe.ui.form.on('Support Item', {
+    rate: function(frm, cdt, cdn) {
+        var child = locals[cdt][cdn];
+        frappe.model.set_value(cdt, cdn, 'amount', child.rate * child.quantity);
+       calculateTotalAmount(frm);
+    }
+});
 
+function calculateTotalAmount(frm) {
+    var total_amount = 0;
+    $.each(frm.doc.item || [], function(i, row) {
+        total_amount += row.amount;
+    });
+    frm.set_value('total_amount', total_amount);
+}
