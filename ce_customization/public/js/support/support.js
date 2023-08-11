@@ -1,6 +1,12 @@
 var count = 0;
 
 
+
+
+
+
+
+
 function DurationText(days, hours, mins,secs){
     let duration = '';
     if( days > 1){
@@ -59,9 +65,22 @@ function DurationText(days, hours, mins,secs){
 
 
 
-
 frappe.ui.form.on('Issue', {
     
+    
+    setup: function(frm) {
+		frm.set_query("item_name", "item", function(doc, cdt, cdn) {
+			let d = locals[cdt][cdn];
+			return {
+				filters: [
+				
+					['Item', 'is_fixed_asset', '=', 0]
+				
+				]
+			};
+		});
+	},
+	
 	after_save:function(frm) {
 	     
 	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
@@ -341,9 +360,19 @@ frappe.ui.form.on('Support Item', {
     rate: function(frm, cdt, cdn) {
         var child = locals[cdt][cdn];
         frappe.model.set_value(cdt, cdn, 'amount', child.rate * child.quantity);
+        calculateTotalAmount(frm);
+    },
+    
+    quantity: function(frm, cdt, cdn) {
+        var child = locals[cdt][cdn];
+        frappe.model.set_value(cdt, cdn, 'amount', child.rate * child.quantity);
        calculateTotalAmount(frm);
+    },
+    item_remove:function(frm){
+        calculateTotalAmount(frm);
     }
 });
+
 
 function calculateTotalAmount(frm) {
     var total_amount = 0;
@@ -352,3 +381,4 @@ function calculateTotalAmount(frm) {
     });
     frm.set_value('total_amount', total_amount);
 }
+
