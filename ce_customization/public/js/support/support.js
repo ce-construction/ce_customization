@@ -82,6 +82,8 @@ frappe.ui.form.on('Issue', {
 	},
 	
 	after_save:function(frm) {
+	    //calculateTotalAmount(frm);
+             
 	     
 	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
 	        count = 1;
@@ -103,6 +105,7 @@ frappe.ui.form.on('Issue', {
                 }
               }
              });
+             
              
 	       
 	   }
@@ -288,7 +291,7 @@ frappe.ui.form.on('Issue', {
         },
 	refresh:function(frm){
 	    
-	        
+      
             
 	    if(frm.doc.opened_by === undefined){
 	    frappe.call({
@@ -327,7 +330,7 @@ frappe.ui.form.on('Issue', {
             
             for (var fieldname2 in fields) {
             // Set all fields as read-only 0 except for the specific field
-                if(fieldname2 == 'opening_date' || fieldname2 == 'opening_time' || fieldname2 == "opened_by"){
+                if(fieldname2 == 'opening_date' || fieldname2 == 'opening_time' || fieldname2 == "opened_by" || fieldname2 == "total_amount"){
                    frm.set_df_property(fieldname2, 'read_only', 1)}
                 else{
                     frm.set_df_property(fieldname2, 'read_only', 0)
@@ -371,6 +374,7 @@ frappe.ui.form.on('Support Item', {
     item_remove:function(frm){
         calculateTotalAmount(frm);
     }
+    
 });
 
 
