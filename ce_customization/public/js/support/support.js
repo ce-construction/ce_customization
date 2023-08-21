@@ -224,10 +224,11 @@ frappe.ui.form.on('Issue', {
         
    
         onload:function(frm){
-    //     if(frm.doc.status === "Open"){
+         if(frm.doc.status === "Open"){
     // //          frm.set_value('starting_date',frm.doc.opening_date+ " "+ frm.doc.opening_time);
     //       frm.save();
-    //     }
+		count = 1;
+         }
 	    
             	var fields = frm.fields_dict;
 		
