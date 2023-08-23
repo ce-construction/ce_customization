@@ -361,6 +361,26 @@ frappe.ui.form.on('Issue', {
 });
 
 frappe.ui.form.on('Support Item', {
+
+	item_code: function(frm, cdt, cdn) {
+        var child = locals[cdt][cdn];
+        
+        frappe.call({
+            method: 'frappe.client.get_value',
+            args: {
+                doctype: 'Item',
+                filters: { name: child.item_code },
+                fieldname: 'item_name'
+            },
+            callback: function(response) {
+                var full_name = response.message.item_name;
+
+                // Set the value to the field in the child table
+                frappe.model.set_value(cdt, cdn, 'item_name_', full_name);
+                
+            }
+        });
+    },
     rate: function(frm, cdt, cdn) {
         var child = locals[cdt][cdn];
         frappe.model.set_value(cdt, cdn, 'amount', child.rate * child.quantity);
