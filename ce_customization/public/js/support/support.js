@@ -109,6 +109,13 @@ frappe.ui.form.on('Issue', {
              
 	       
 	   }
+	   
+	   if(count === 2){
+	       var field = frm.get_value('resolution_date');
+	       frm.set_value('resolution_date', field);
+
+	       
+	   }
            
 		// your code here
 		if(frm.doc.status === "Closed" && count === 0){
@@ -136,6 +143,7 @@ frappe.ui.form.on('Issue', {
 		}
 		
 		if(frm.doc.status === "Closed" && count === 1){
+		    count = 2;
 		    
                // frm.set_value('resolution_date', frappe.datetime.now_datetime());
                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
@@ -242,7 +250,13 @@ frappe.ui.form.on('Issue', {
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
                 if (fieldname !== 'status') {
-                   frm.set_df_property(fieldname, 'read_only', 1);
+                   if(fieldname === 'item'){
+                        frm.set_df_property(fieldname, 'read_only', 0);
+                        
+                    }
+                    else{
+                        frm.set_df_property(fieldname, 'read_only', 1);
+                    }
                     
                 }
             }
@@ -322,7 +336,13 @@ frappe.ui.form.on('Issue', {
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
                 if (fieldname !== 'status') {
-                   frm.set_df_property(fieldname, 'read_only', 1);
+                    if(fieldname === 'item'){
+                        frm.set_df_property(fieldname, 'read_only', 0);
+                        
+                    }
+                    else{
+                        frm.set_df_property(fieldname, 'read_only', 1);
+                    }
                     
                 }
             }
