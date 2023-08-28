@@ -1,6 +1,5 @@
 var count = 0;
-
-
+var flag = 0;
 
 
 
@@ -87,6 +86,7 @@ frappe.ui.form.on('Issue', {
 	     
 	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
 	        count = 1;
+	       
 	         frappe.call({
                     method: 'frappe.client.set_value',
                     args: {
@@ -110,16 +110,16 @@ frappe.ui.form.on('Issue', {
 	       
 	   }
 	   
-	   if(count === 2){
+	   if(flag === 1 && frm.doc.status === "Closed" && count != 1){
 	       var field = frm.get_value('resolution_date');
 	       frm.set_value('resolution_date', field);
-
+	     
 	       
 	   }
            
 		// your code here
 		if(frm.doc.status === "Closed" && count === 0){
-		    
+		    flag = 1
 		    
 		     frappe.call({
                                 method: 'frappe.client.set_value',
@@ -143,7 +143,8 @@ frappe.ui.form.on('Issue', {
 		}
 		
 		if(frm.doc.status === "Closed" && count === 1){
-		    count = 2;
+		    flag = 1;
+		    count = 0;
 		    
                // frm.set_value('resolution_date', frappe.datetime.now_datetime());
                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
@@ -267,12 +268,12 @@ frappe.ui.form.on('Issue', {
         },
         
          timeline_refresh:function(frm){
-            //   if(frm.doc.status == "Open") {
+               if(frm.doc.status == "Open") {
 
             //          frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time); 
-            //          count = 0;
+                    count = 1;
                    
-            //  }
+             }
             //       // if(frm.doc.status == "Closed" && frm.doc.resolution_date === undefined){
                     //frm.set_value('resolution_date', frappe.datetime.now_datetime());
                    // frm.save();
@@ -426,4 +427,3 @@ function calculateTotalAmount(frm) {
     });
     frm.set_value('total_amount', total_amount);
 }
-
