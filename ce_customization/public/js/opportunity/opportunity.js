@@ -33,9 +33,9 @@ frappe.ui.form.on('Opportunity', {
 function calculateTotalAmount(frm) {
     var total = 0;
     $.each(frm.doc.plot || [], function(i, row) {
-        total += row.price;
+        total  += row.price;
     });
-    frm.set_value('total', total);
+    frm.set_value('custom_total_amt', total);
 }
 
 
