@@ -92,9 +92,9 @@ def get_columns():
         {
             'fieldname': 'name',
             'label': ('ID'),
-            'fieldtype': 'Data',
+            'fieldtype': 'Link',
 			'width':'130',
-            #'options': 'Account'
+            'options': 'Issue'
         },
         {
 			'fieldname': 'resolution_date',
