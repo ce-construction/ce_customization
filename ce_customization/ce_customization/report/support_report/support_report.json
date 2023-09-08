@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2023-08-24 16:12:31.490688",
  "disabled": 0,
@@ -9,7 +9,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2023-08-24 16:34:37.110547",
+ "modified": "2023-09-03 16:13:49.991125",
  "modified_by": "Administrator",
  "module": "Ce Customization",
  "name": "Support Report",
