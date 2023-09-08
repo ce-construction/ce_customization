@@ -51,7 +51,7 @@ def get_data(filters):
     to_date = filters.get('to') 
     
     sql_query = """
-    SELECT so.name,so.resolution_date,so.user_name, so.department, so.site, so.subject, si.item_code, si.item_name_, si.quantity, si.rate, si.amount
+    SELECT so.name,so.resolution_date,so.user_name, so.department, so.site, so.subject, si.item_code, si.item_name_, si.type,si.quantity, si.rate, si.amount
     FROM `tabIssue` AS so 
     JOIN `tabSupport Item` AS si ON so.name = si.parent
     WHERE {from_filter}
@@ -93,8 +93,9 @@ def get_columns():
             'fieldname': 'name',
             'label': ('ID'),
             'fieldtype': 'Link',
-			'width':'130',
-            'options': 'Issue'
+            'options': 'Issue',
+			'width':'130'
+            
         },
         {
 			'fieldname': 'resolution_date',
@@ -161,6 +162,13 @@ def get_columns():
 			'fieldname': 'item_name_',
             'label': ('Item Name'),
             'fieldtype': 'Data',
+            'align':'left',
+			'width':'120'
+        },
+        {
+			'fieldname': 'type',
+            'label': ('Status'),
+            'fieldtype': 'Select',
             'align':'left',
 			'width':'120'
         },
