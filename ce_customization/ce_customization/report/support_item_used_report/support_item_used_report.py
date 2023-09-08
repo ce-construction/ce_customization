@@ -51,9 +51,9 @@ def get_data(filters):
     to_date = filters.get('to') 
     
     sql_query = """
-    SELECT so.name,so.user_name, so.department, so.site, so.subject, si.item_code, si.item_name_, si.quantity, si.rate, si.amount,so.resolution_date
+    SELECT so.name,so.resolution_date,so.user_name, so.department, so.site, so.subject, si.item_code, si.item_name_, si.quantity, si.rate, si.amount
     FROM `tabIssue` AS so 
-    LEFT JOIN `tabSupport Item` AS si ON so.name = si.parent
+    JOIN `tabSupport Item` AS si ON so.name = si.parent
     WHERE {from_filter}
     {to_filter}
     """
@@ -96,12 +96,19 @@ def get_columns():
 			'width':'130',
             #'options': 'Account'
         },
+        {
+			'fieldname': 'resolution_date',
+            'label': ('Date'),
+            'fieldtype': 'Datetime',
+            'width':'110'
+        },
 		{
             'fieldname': 'user_name',
             'label': ('User name'),
             'fieldtype': 'Data',
 			'width':'120',
-            'color': 'blue !important;'
+            'color': 'blue !important;',
+            'align':'left',
             #'options': 'Account'
         },
         {
@@ -109,6 +116,7 @@ def get_columns():
             'label': ('Department'),
             'fieldtype': 'Link',
         	'options': 'Department',
+            'align':'left',
 			'width':'120'
         },
         {
@@ -116,13 +124,15 @@ def get_columns():
             'label': ('Site'),
             'fieldtype': 'Link',
         	'options': 'Branch',
+            'align':'left',
 			'width':'80'
         },
         {
 			'fieldname': 'subject',
             'label': ('Particular'),
             'fieldtype': 'Data',
-			'width':'120'
+			'width':'120',
+            'align':'left'
             #'options': 'Account'
         },
 		# {
@@ -144,38 +154,38 @@ def get_columns():
             'label': ('Item Code'),
             'fieldtype': 'Link',
             'options': 'Item',
+            'align':'left',
 			'width':'90'
         },
         {
 			'fieldname': 'item_name_',
             'label': ('Item Name'),
             'fieldtype': 'Data',
+            'align':'left',
 			'width':'120'
         },
         {
 			'fieldname': 'quantity',
             'label': ('Quantity'),
             'fieldtype': 'Float',
+            #'align':'left',
 			'width':'90'
         },
         {
 			'fieldname': 'rate',
             'label': ('Rate'),
             'fieldtype': 'Currency',
+            #'align':'left',
 			'width':'90'
         },
         {
 			'fieldname': 'amount',
             'label': ('Amount'),
             'fieldtype': 'Currency',
+            #'align':'left',
 			'width':'90'
-        },
-        {
-			'fieldname': 'resolution_date',
-            'label': ('Date'),
-            'fieldtype': 'Datetime',
-            'width':'110'
         }
+     
 	]
 
 # def get_cs_data(filters):
