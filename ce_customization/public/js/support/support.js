@@ -79,10 +79,29 @@ frappe.ui.form.on('Issue', {
 			};
 		});
 	},
-	
+
+    validate: function (frm) {
+        frm.doc.item.forEach(function (row) {
+            if (row.quantity < 1) {
+                 frappe.msgprint({
+                    title: __('Warning'),
+                    message: __('Quantity in Table must be one or greater than one.'),
+                    indicator: 'red',
+                    primary_action: {
+                    label: __('OK'),
+                    action: function() {
+                        // Do something when the user clicks "OK"
+                        cur_dialog.hide();
+                    }
+                },
+                });
+                frappe.validated = false;
+            }
+        });
+    },
 	after_save:function(frm) {
 	    //calculateTotalAmount(frm);
-             
+        
 	     
 	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
 	        count = 1;
@@ -382,6 +401,8 @@ frappe.ui.form.on('Issue', {
 });
 
 frappe.ui.form.on('Support Item', {
+    
+
 
 	item_code: function(frm, cdt, cdn) {
         var child = locals[cdt][cdn];
@@ -410,12 +431,22 @@ frappe.ui.form.on('Support Item', {
     
     quantity: function(frm, cdt, cdn) {
         var child = locals[cdt][cdn];
+        // if(child.quantity < 1){
+        //   frappe.msgprint(
+        //         msg='Please enter 1 or greater',
+        //         title='Warning',
+        //     )
+
+        //     frappe.validated = false;
+        // }
         frappe.model.set_value(cdt, cdn, 'amount', child.rate * child.quantity);
-       calculateTotalAmount(frm);
+        calculateTotalAmount(frm);
     },
+    
     item_remove:function(frm){
         calculateTotalAmount(frm);
-    }
+    },
+    
     
 });
 
@@ -423,7 +454,12 @@ frappe.ui.form.on('Support Item', {
 function calculateTotalAmount(frm) {
     var total_amount = 0;
     $.each(frm.doc.item || [], function(i, row) {
+        //  if (!row.item_code) {
+        //         // Remove the row from the child table
+        //         frm.doc.item.splice(i, 1);
+        //     }
         total_amount += row.amount;
     });
     frm.set_value('total_amount', total_amount);
 }
+

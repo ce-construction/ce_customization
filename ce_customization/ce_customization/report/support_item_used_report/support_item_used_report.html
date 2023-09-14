@@ -1,0 +1,153 @@
+<style>
+
+     th{
+      border:1px solid black; 
+      font-weight: bold;
+      
+    }
+    td{
+      border-bottom:1px solid black; 
+      border-right:1px solid black;
+      border-left:1px solid black; 
+    }
+    
+    table{
+        border-spacing: 0px;
+        width: 100%;
+    }
+   .print-format th {
+    padding: 5px !important;
+    font-weight: bold;
+    color: black;
+    }
+    .print-format td{
+        padding: 5px !important;
+        
+    }
+    .print-format {
+    font-size: 12px;
+    }
+
+    /* table.report-container {
+      page-break-after:always;
+}
+table.report-header {
+      display:table-header-group;
+} */
+    /* table thead {
+        display: table-header-group;
+    }
+
+    table tbody {
+        display: table-row-group;
+    } 
+
+    .page-break {
+        page-break-after: always;
+    } */
+    /* @media print {
+            div.okay {
+                color: black;
+                
+            }
+        } */ 
+
+        @media print {
+            /* Define the header */
+            @page {
+                 size: auto;  margin: 4mm; 
+            }
+
+
+
+
+            .header {
+                position: relative;
+                top: 0;
+                left: 0;
+                right: 0;
+                text-align: center;
+                /* background-color: #ccc; Header background color */
+                /* Adjust the padding as needed */
+            }
+            .printable-area{
+                margin-top: 0px;
+            }
+        }
+    </style>
+
+<!-- <div>
+    <img src="{{ frappe.defaults.get_user_default('company_logo') }}" alt="Company Logo" width="200">
+ </div> -->
+
+<div style="border-left: 0px solid black; border-bottom: 0px solid black;border-right: 0px solid black;border-top: 0px;margin:30px;">
+    
+   
+        
+            <!-- <table class="report-container">
+                <thead class="report-header">
+                      <tr>
+                      <th>Date</th>
+                      <th>Particulars</th>
+                      <th>Quantity</th>
+                      </tr>
+                  </thead>
+            </table> -->
+        
+
+    <div class ="printable-area">
+        <table >
+            <thead>
+                <tr>
+                    <th colspan="7">
+                        <div class="header" style="display: flex;flex-direction: row; justify-content: space-around ;height: 90px; align-items: center;">
+            
+                            <div><img src="/assets/ce_customization/images/logo-ce.png" alt="Your Logo" width="120px" style="align-self:end;"> </div> 
+                            <div style="width:1px; height:100px;background-color: black;"></div>
+                            <div><h2><b> {%= __("IT DAILY JOB ENTRY") %}</b></h2></div>
+                            <div style="width:1px; height:100px;background-color: black;"></div>
+                            <div>
+                                <b><p>CE/IT/F-05/R-00</p>
+                                <p>Revision Date: 14/03/2017</p></b>
+                            </div>
+                    
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Particulars</th>
+                    <th>Quantity</th>
+                    <th>Site/Department</th>
+                    <th>User Name</th>
+                    <th>Entered By</th>
+                    <th>Remarks</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for(var i=0, l=data.length; i<l; i++) { %}
+            
+                <tr>
+                    <td>{%= data[i].resolution_date %}</td>
+                    <td>{%= data[i].item_name_ %}</td>
+                    <td>{%= data[i].quantity%}</td>
+                    <td>{%= data[i].site %}</td>
+                    <td>{%= data[i].user_name %}</td>
+                    <td>{%= data[i].closed_by %}</td>
+                    <td >{%= data[i].subject %}</td>
+                </tr >
+
+               
+            {% } %}
+              
+           </tbody>            
+          </table>
+    </div> 
+</div>
+
+
+
+
+
+    <!-- -->
