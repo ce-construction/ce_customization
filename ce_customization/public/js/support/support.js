@@ -80,24 +80,35 @@ frappe.ui.form.on('Issue', {
 		});
 	},
 
-    validate: function (frm) {
-        frm.doc.item.forEach(function (row) {
-            if (row.quantity < 1) {
-                 frappe.msgprint({
-                    title: __('Warning'),
-                    message: __('Quantity in Table must be one or greater than one.'),
-                    indicator: 'red',
-                    primary_action: {
-                    label: __('OK'),
-                    action: function() {
-                        // Do something when the user clicks "OK"
-                        cur_dialog.hide();
-                    }
-                },
-                });
-                frappe.validated = false;
-            }
-        });
+    validate: function (frm) 
+    {
+        if(frm.doc.item)
+        {
+        
+            frm.doc.item.forEach(function (row)
+            {
+                if (row.quantity < 1) 
+                {
+                     frappe.msgprint
+                     ({
+                        title: __('Warning'),
+                        message: __('Quantity in Table must be one or greater than one.'),
+                        indicator: 'red',
+                        primary_action: 
+                        {
+                            label: __('OK'),
+                            action: function() 
+                            {
+                                // Do something when the user clicks "OK"
+                                cur_dialog.hide();
+                            }
+                        }
+                    });
+                    frappe.validated = false;
+                }
+            
+            });
+        }
     },
 	after_save:function(frm) {
 	    //calculateTotalAmount(frm);
@@ -270,7 +281,7 @@ frappe.ui.form.on('Issue', {
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
                 if (fieldname !== 'status') {
-                   if(fieldname === 'item'){
+                   if(fieldname === 'item' || fieldname === 'issue_type'){
                         frm.set_df_property(fieldname, 'read_only', 0);
                         
                     }
@@ -356,7 +367,7 @@ frappe.ui.form.on('Issue', {
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
                 if (fieldname !== 'status') {
-                    if(fieldname === 'item'){
+                    if(fieldname === 'item' || fieldname === 'issue_type'){
                         frm.set_df_property(fieldname, 'read_only', 0);
                         
                     }
