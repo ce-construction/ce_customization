@@ -389,7 +389,7 @@ frappe.ui.form.on('Issue', {
        frm.set_value('status', 'Closed');   
                 frm.save()
             }).css({
-                "background-color": "#2490ef",
+                "background-color": "rgb(106 109 111)",
                 "color": "white"
             });
 	  }
@@ -399,7 +399,7 @@ frappe.ui.form.on('Issue', {
        frm.set_value('status', 'Open');   
                 frm.save()
             }).css({
-                "background-color": "#2490ef",
+                "background-color": "rgb(106 109 111)",
                 "color": "white"
             });
 	  }
