@@ -383,8 +383,26 @@ frappe.ui.form.on('Issue', {
             // }}
         },
 	refresh:function(frm){
-	    
-      
+	if(frm.doc.status === "Open")
+	{
+    frm.add_custom_button(__("Close"), function() {
+       frm.set_value('status', 'Closed');   
+                frm.save()
+            }).css({
+                "background-color": "#2490ef",
+                "color": "white"
+            });
+	  }
+	  	if(frm.doc.status === "Closed")
+	{
+    frm.add_custom_button(__("Reopen"), function() {
+       frm.set_value('status', 'Open');   
+                frm.save()
+            }).css({
+                "background-color": "#2490ef",
+                "color": "white"
+            });
+	  }
             
 	    if(frm.doc.opened_by === undefined){
 	    frappe.call({
