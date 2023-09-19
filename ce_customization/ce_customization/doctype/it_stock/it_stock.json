@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-17 10:45:55.182694",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code_",
+  "particular",
+  "item_status_",
+  "unit_",
+  "quantity_",
+  "user_name_",
+  "remarks_"
+ ],
+ "fields": [
+  {
+   "fieldname": "particular",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Particulars",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "unit_",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit",
+   "options": "UOM"
+  },
+  {
+   "columns": 1,
+   "fieldname": "quantity_",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "user_name_",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "User's Name"
+  },
+  {
+   "columns": 1,
+   "fieldname": "remarks_",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "item_code_",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "columns": 1,
+   "default": "New",
+   "fieldname": "item_status_",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "New\nOld"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-09-19 11:43:06.450604",
+ "modified_by": "Administrator",
+ "module": "Ce Customization",
+ "name": "IT Stock",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

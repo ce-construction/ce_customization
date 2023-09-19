@@ -54,20 +54,24 @@ def get_data(filters):
     to_date = filters.get('to') 
     
     sql_query = """
-    SELECT so.name, DATE(so.resolution_date),  CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject
-    FROM `tabIssue` AS so 
-    JOIN `tabSupport Item` AS si ON so.name = si.parent
+    WITH CTENote (name,resolution_date,item_name,quantity,site,user_name,closed_by,subject) AS (
+        SELECT so.name, DATE(so.resolution_date) as resolution_date,  CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject FROM `tabIssue` AS so JOIN `tabSupport Item` AS si ON so.name = si.parent
+        union
+        
+        SELECT so.name, so.date_ as resolution_date, CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as qunatity,CONCAT(so.from_," To ",so.to_) as site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject FROM `tabChallan` as so JOIN `tabIT Stock` AS si ON so.name = si.parent WHERE so.checked_by != ''
+    )
+    SELECT * FROM CTENote 
     WHERE {from_filter}
-    {to_filter}
+    {to_filter} order by resolution_date desc
     """
     from_filter = ""
     to_filter = ""
 
     if from_date:
-        from_filter = f" (DATE(so.resolution_date) >= '{from_date}')"
+        from_filter = f" (DATE(resolution_date) >= '{from_date}')"
 
     if to_date:
-        to_filter = f" AND (DATE(so.resolution_date) <= '{to_date}')"
+        to_filter = f" AND (DATE(resolution_date) <= '{to_date}')"
 
     # Insert the 'from_filter' and 'to_filter' into the SQL query
     sql_query = sql_query.format(from_filter=from_filter, to_filter=to_filter)
@@ -81,7 +85,7 @@ def get_data(filters):
             pass
         else:
             sql_query += f" AND {fieldname} = '{value}'"
-
+            print(sql_query)
 #    # if filters.get('subject'): conditions += f" AND subject='{filters.get('subject')}' "
        
 
@@ -95,8 +99,8 @@ def get_columns():
         {
             'fieldname': 'name',
             'label': ('ID'),
-            'fieldtype': 'Link',
-            'options': 'Issue',
+            'fieldtype': 'Data',
+            #'options':"Issue",         
 			'width':'130'
             
         },

@@ -16,7 +16,7 @@
         width: 100%;
     }
    .print-format th {
-    padding: 5px !important;
+    
     font-weight: bold;
     color: black;
     }
@@ -55,24 +55,9 @@ table.report-header {
         @media print {
             /* Define the header */
             @page {
-                 size: auto;  margin: 4mm; 
+                 size: a4 landscape;  margin: 2mm; 
             }
 
-
-
-
-            .header {
-                position: relative;
-                top: 0;
-                left: 0;
-                right: 0;
-                text-align: center;
-                /* background-color: #ccc; Header background color */
-                /* Adjust the padding as needed */
-            }
-            .printable-area{
-                margin-top: 0px;
-            }
         }
     </style>
 
@@ -80,7 +65,7 @@ table.report-header {
     <img src="{{ frappe.defaults.get_user_default('company_logo') }}" alt="Company Logo" width="200">
  </div> -->
 
-<div style="border-left: 0px solid black; border-bottom: 0px solid black;border-right: 0px solid black;border-top: 0px;margin:30px;">
+<div style="margin:30px;">
     
    
         

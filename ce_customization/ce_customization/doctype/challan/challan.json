@@ -1,0 +1,157 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-09-17 10:30:31.273794",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "s3",
+  "challan",
+  "date_",
+  "c1",
+  "c2",
+  "from_",
+  "to_",
+  "s1",
+  "it_stock",
+  "s2",
+  "prepared_by",
+  "c3",
+  "checked_by",
+  "c4",
+  "approved_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "challan",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Challan No:",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "default": "H/O",
+   "fieldname": "from_",
+   "fieldtype": "Link",
+   "label": "From",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_",
+   "fieldtype": "Link",
+   "label": "To",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "c1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "c2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "it_stock",
+   "fieldtype": "Table",
+   "label": "IT Stock",
+   "options": "IT Stock",
+   "reqd": 1
+  },
+  {
+   "fieldname": "s1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "prepared_by",
+   "fieldtype": "Data",
+   "label": "Prepared By"
+  },
+  {
+   "fieldname": "checked_by",
+   "fieldtype": "Link",
+   "label": "Checked By",
+   "options": "User"
+  },
+  {
+   "bold": 1,
+   "fieldname": "approved_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "c3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "c4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "s2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "CHL-.YYYY.-"
+  },
+  {
+   "fieldname": "s3",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-09-17 14:12:42.936795",
+ "modified_by": "Administrator",
+ "module": "Ce Customization",
+ "name": "Challan",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Support Team",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

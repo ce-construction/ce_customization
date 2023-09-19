@@ -1,7 +1,7 @@
 var count = 0;
 var flag = 0;
 
-
+var stop = 0;
 
 
 
@@ -46,7 +46,7 @@ function DurationText(days, hours, mins,secs){
         duration = duration.concat(" ",`${secs} secs`);
     }
     else if( secs === 0 ){
-        duration = duration.concat("");
+        duration = duration.concat("",`${secs} sec`);
     }
     else{
         duration = duration.concat(" ",`${secs} sec`);
@@ -116,6 +116,7 @@ frappe.ui.form.on('Issue', {
 	     
 	   if(frm.doc.status === "Open" || frm.doc.status === "Replied" || frm.doc.status === "On Hold" || frm.doc.status === "Resolved"){
 	        count = 1;
+	        stop = 1;
 	       
 	         frappe.call({
                     method: 'frappe.client.set_value',
@@ -127,8 +128,8 @@ frappe.ui.form.on('Issue', {
                     },
             callback: function(response) {
                 if (response.message) {
-                  console.log("Starting date updated successfully!");
-                   // frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
+                  console.log("Starting date updated successfully!!!");
+                  // frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
                  frm.reload_doc();
                 } else {
                   console.log("Failed to update starting date.");
@@ -147,50 +148,95 @@ frappe.ui.form.on('Issue', {
 	       
 	   }
            
-		// your code here
-		if(frm.doc.status === "Closed" && count === 0){
-		    flag = 1
+		
+// 		if(frm.doc.status === "Closed" && count === 0)
+// 		{
+// 		    flag = 1;
 		    
-		     frappe.call({
-                                method: 'frappe.client.set_value',
-                                args: {
-                                    doctype: frm.doc.doctype,
-                                    name: frm.doc.name,
-                                    fieldname: 'resolution_date',
-                                    value:frm.doc.opening_date+ " "+ frm.doc.opening_time
-                                },
-                        callback: function(response) {
-                            if (response.message) {
-                              console.log("success!");
-                                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
-                          frm.reload_doc();
-                            } else {
-                              console.log("Failed.");
-                            }
-                          }
-                         });
+		    
+// 		     frappe.call({
+//                                 method: 'frappe.client.set_value',
+//                                 args: {
+//                                     doctype: frm.doc.doctype,
+//                                     name: frm.doc.name,
+//                                     fieldname: 'work_duration_',
+//                                   value:"0 Secs"
+//                                 },
+//                         callback: function(response) {
+//                             if (response.message) {
+//                               console.log("success!");
+//                               //  frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
+//                           frm.reload_doc();
+//                             } else {
+//                               console.log("Failed.");
+//                             }
+//                           }
+//                          });
                          
-		}
+// 		}
 		
 		if(frm.doc.status === "Closed" && count === 1){
 		    flag = 1;
 		    count = 0;
+		   
 		    
                // frm.set_value('resolution_date', frappe.datetime.now_datetime());
                //frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
-             
+            
              frappe.call({
                     method: 'frappe.client.set_value',
                     args: {
                         doctype: frm.doc.doctype,
                         name: frm.doc.name,
-                        fieldname: 'resolution_date',
-                        value:frappe.datetime.now_datetime()
+                        fieldname: 'starting_date',
+                        value:frm.doc.opening_date+ " "+ frm.doc.opening_time
                     },
             callback: function(response) {
                 if (response.message) {
-                  console.log("Resolution date updated successfully!");
+                  console.log("Resolution date updated successfully!!!");
                    // frm.set_value('starting_date', frm.doc.opening_date+ " "+ frm.doc.opening_time);
+                   if(stop === 1)
+                   {
+                     frappe.call({
+                            method: 'frappe.client.set_value',
+                            args: {
+                                doctype: frm.doc.doctype,
+                                name: frm.doc.name,
+                                fieldname: 'resolution_date',
+                                value: frappe.datetime.now_datetime() 
+                            },
+                            callback: function(response) {
+                                if (response.message) {
+                                    console.log('Success! Field2 has been updated.');
+                                    frm.reload_doc();
+                                } else {
+                                    console.log('Failed to update Field2.');
+                                }
+                            }
+                        });
+                        stop = 0;
+                   }
+                   else{
+                            frappe.call({
+                            method: 'frappe.client.set_value',
+                            args: {
+                                doctype: frm.doc.doctype,
+                                name: frm.doc.name,
+                                fieldname: 'resolution_date',
+                                value: frm.doc.opening_date+ " "+ frm.doc.opening_time 
+                            },
+                            callback: function(response) {
+                                if (response.message) {
+                                    console.log('Success! Field2 has been updated.');
+                                    frm.reload_doc();
+                                } else {
+                                    console.log('Failed to update Field2.');
+                                }
+                            }
+                        });
+                       
+                   }
+                               
                  frm.reload_doc();
                 } else {
                   console.log("Failed to update resolution date.");
@@ -218,13 +264,14 @@ frappe.ui.form.on('Issue', {
                      if(frm.doc.starting_date && frm.doc.resolution_date){
                          
                          var closed_date = frm.doc.resolution_date;
-                var opened_date = frm.doc.starting_date;
-                var new_closedDate = new Date(closed_date);
-                var new_openedOpened = new Date(opened_date);
+                        var opened_date = frm.doc.starting_date;
+                        var new_closedDate = new Date(closed_date);
+                        var new_openedOpened = new Date(opened_date);
        
                 
                 
                  var timeDifference = new_closedDate.getTime() - new_openedOpened.getTime();
+                 console.log(timeDifference);
               
                  
                  var days = Math.floor(timeDifference / (1000 * 3600 * 24));
@@ -362,7 +409,7 @@ frappe.ui.form.on('Issue', {
 		var fields = frm.fields_dict;
 		
         if(frm.doc.status == "Closed"){
-            
+        
         // Iterate through the fields
             for (var fieldname in fields) {
             // Set all fields as read-only except for the specific field
