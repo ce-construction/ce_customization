@@ -81,9 +81,8 @@
   },
   {
    "fieldname": "checked_by",
-   "fieldtype": "Link",
-   "label": "Checked By",
-   "options": "User"
+   "fieldtype": "Data",
+   "label": "Checked By"
   },
   {
    "bold": 1,
@@ -117,7 +116,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-19 17:02:23.799360",
+ "modified": "2023-09-20 09:23:01.432708",
  "modified_by": "Administrator",
  "module": "Ce Customization",
  "name": "Challan",
