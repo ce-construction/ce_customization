@@ -54,12 +54,20 @@ def get_data(filters):
     to_date = filters.get('to') 
     
     sql_query = """
-    WITH CTENote (name,resolution_date,item_name,quantity,site,user_name,closed_by,subject) AS (
-        SELECT so.name, DATE(so.resolution_date) as resolution_date,  CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject FROM `tabIssue` AS so JOIN `tabSupport Item` AS si ON so.name = si.parent
-        union
-        
-        SELECT so.name, so.date_ as resolution_date, CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as qunatity,CONCAT(so.from_," To ",so.to_) as site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject FROM `tabChallan` as so JOIN `tabIT Stock` AS si ON so.name = si.parent WHERE so.checked_by != ''
-    )
+ WITH CTENote (name,resolution_date,nepali_miti,item_name,quantity,site,user_name,closed_by,subject) AS (
+    SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject 
+    FROM `tabIssue` AS so 
+    JOIN `tabSupport Item` AS si ON so.name = si.parent
+    JOIN `tabDateMiti` AS sa ON DATE(so.resolution_date) = sa.date
+
+    UNION
+
+    SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject 
+    FROM `tabChallan` as so 
+    JOIN `tabIT Stock` AS si ON so.name = si.parent
+    JOIN `tabDateMiti` AS sa ON so.date_ = sa.date
+    WHERE so.checked_by != ''
+)
     SELECT * FROM CTENote 
     WHERE {from_filter}
     {to_filter} order by resolution_date desc
@@ -108,6 +116,12 @@ def get_columns():
 			'fieldname': 'resolution_date',
             'label': ('Date'),
             'fieldtype': 'Date',
+            'width':'110'
+        },
+          {
+			'fieldname': 'nepali_miti',
+            'label': ('Nepali Date'),
+            'fieldtype': 'Data',
             'width':'110'
         },
         {

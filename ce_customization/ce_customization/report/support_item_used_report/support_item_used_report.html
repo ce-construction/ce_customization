@@ -55,7 +55,7 @@ table.report-header {
         @media print {
             /* Define the header */
             @page {
-                 size: a4 landscape;  margin: 2mm; 
+                 size: auto ;  margin: 2mm; 
             }
 
         }
@@ -84,7 +84,7 @@ table.report-header {
         <table >
             <thead>
                 <tr>
-                    <th colspan="7">
+                    <th colspan="8">
                         <div class="header" style="display: flex;flex-direction: row; justify-content: space-around ;height: 90px; align-items: center;">
             
                             <div><img src="/assets/ce_customization/images/logo-ce.png" alt="Your Logo" width="120px" style="align-self:end;"> </div> 
@@ -100,10 +100,11 @@ table.report-header {
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="7" style="height: 25px;"></th>
+                    <th colspan="8" style="height: 25px;"></th>
                 </tr>
                 <tr>
                     <th>Date</th>
+                    <th>Nepali Date</th>
                     <th>Particulars</th>
                     <th>Quantity</th>
                     <th>Site/Department</th>
@@ -118,6 +119,7 @@ table.report-header {
             
                 <tr>
                     <td>{%= data[i].resolution_date %}</td>
+                    <td>{%= data[i].nepali_miti %}</td>
                     <td>{%= data[i].item_name_ %}</td>
                     <td>{%= data[i].quantity%}</td>
                     <td>{%= data[i].site %}</td>
