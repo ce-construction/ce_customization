@@ -114,13 +114,13 @@ def get_columns():
         },
         {
 			'fieldname': 'resolution_date',
-            'label': ('Date'),
+            'label': ('Date (A.D)'),
             'fieldtype': 'Date',
             'width':'110'
         },
           {
 			'fieldname': 'nepali_miti',
-            'label': ('Nepali Date'),
+            'label': ('Date (B.S)'),
             'fieldtype': 'Data',
             'width':'110'
         },
