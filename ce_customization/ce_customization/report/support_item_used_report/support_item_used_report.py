@@ -54,7 +54,7 @@ def get_data(filters):
     to_date = filters.get('to') 
     
     sql_query = """
- WITH CTENote (name,resolution_date,nepali_miti,item_name,quantity,site,user_name,closed_by,subject) AS (
+ WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,user_name,closed_by,subject) AS (
     SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject 
     FROM `tabIssue` AS so 
     JOIN `tabSupport Item` AS si ON so.name = si.parent
@@ -70,7 +70,7 @@ def get_data(filters):
 )
     SELECT * FROM CTENote 
     WHERE {from_filter}
-    {to_filter} order by resolution_date desc
+    {to_filter} 
     """
     from_filter = ""
     to_filter = ""
@@ -92,11 +92,11 @@ def get_data(filters):
         elif fieldname == 'to':
             pass
         else:
-            sql_query += f" AND {fieldname} = '{value}'"
+            fieldname += f" AND {fieldname} = '{value}'"
             print(sql_query)
 #    # if filters.get('subject'): conditions += f" AND subject='{filters.get('subject')}' "
        
-
+    sql_query = sql_query + " ORDER BY resolution_date DESC"
 #     #print(f"\n\n{conditions}\n\n")
     all_data = frappe.db.sql(sql_query)
 
@@ -106,10 +106,12 @@ def get_columns():
 	return[
         {
             'fieldname': 'name',
-            'label': ('ID'),
+            'label': ('<span style="color: blue;">ID</span>'),
             'fieldtype': 'Data',
             #'options':"Issue",         
-			'width':'130'
+			'width':'130',
+            'style': 'background-color: yellow; color: black;'
+           
             
         },
         {
@@ -151,7 +153,6 @@ def get_columns():
             'label': ('User name'),
             'fieldtype': 'Data',
 			'width':'120',
-            'color': 'blue !important;',
             'align':'left',
             #'options': 'Account'
         },

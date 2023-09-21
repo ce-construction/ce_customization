@@ -19,16 +19,16 @@ frappe.query_reports["Support Item Used Report"] = {
 			//'css_class': 'small'
         },
 
-        {
-			'fieldname': 'department',
-            'label': __('Department'),
-            'fieldtype': 'Link',
-        	'options': 'Department'
-        },
+        // {
+		// 	'fieldname': 'department',
+        //     'label': __('Department'),
+        //     'fieldtype': 'Link',
+        // 	'options': 'Department'
+        // },
       
         {
 			'fieldname': 'item_name_',
-            'label': __('Item Name'),
+            'label': __('Particulars'),
             'fieldtype': 'Data',
             //'options': 'Item'
         },
@@ -60,12 +60,12 @@ frappe.query_reports["Support Item Used Report"] = {
         //     'options': 'Item'
         // }
       
-        {
-			'fieldname': 'subject',
-            'label': __('Particular'),
-            'fieldtype': 'Data',
-            //'options': 'Account'
-        },
+        // {
+		// 	'fieldname': 'subject',
+        //     'label': __('Particular'),
+        //     'fieldtype': 'Data',
+        //     //'options': 'Account'
+        // },
 
 	]
 };
