@@ -392,8 +392,23 @@ frappe.ui.form.on('Issue', {
                 "background-color": "rgb(106 109 111)",
                 "color": "white"
             });
+            frappe.call({
+            method: 'frappe.client.get_value',
+            args: {
+                doctype: 'User',
+                filters: { name: frappe.session.user },
+                fieldname: 'full_name'
+            },
+            callback: function(response) {
+                var full_name = response.message.full_name;
+
+                // Set the value to a field
+                frm.set_value('closed_by', full_name);
+                frm.set_df_property('closed_by', 'read_only', 1);
+            }
+        });//}
 	  }
-	  	if(frm.doc.status === "Closed")
+	if(frm.doc.status === "Closed")
 	{
     frm.add_custom_button(__("Reopen"), function() {
        frm.set_value('status', 'Open');   
@@ -402,6 +417,7 @@ frappe.ui.form.on('Issue', {
                 "background-color": "rgb(106 109 111)",
                 "color": "white"
             });
+          
 	  }
             
 	    if(frm.doc.opened_by === undefined){
