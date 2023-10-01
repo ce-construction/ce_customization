@@ -35,7 +35,8 @@ function calculateTotalAmount(frm) {
     $.each(frm.doc.plot || [], function(i, row) {
         total  += row.price;
     });
-    frm.set_value('custom_total_amt', total);
+    frm.set_value('total', total);
+    //frm.set_value('custom_total_amt', total);
 }
 
 
