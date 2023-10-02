@@ -498,18 +498,25 @@ frappe.pages['custom-crm-dashboard'].on_page_load = function (wrapper) {
 			  // console.log(formatValue(TotalAmt))
 				// Calculate the percentage based on your data
 
-             const percentage = (sumValue / TotalAmt ) * 100;
+           //  const percentage = (sumValue / TotalAmt ) * 100;
 		              //console.log(percentage)
 			
+					//  const percentage = (200000/ 400000 ) * 100;
 
-
-        //     // Display the percentage in your HTML
-           const percentageDisplay = document.getElementById('percent');
-                percentageDisplay.textContent = `${percentage.toFixed(2)}%`;
-
-// // Update the progress bar width based on the percentage
-const progressBar = document.getElementById('progress-bar');
-progressBar.style.width = `${percentage}%`;
+            // Display the percentage in your HTML
+			const percentageDisplay = document.getElementById('percent');
+			const percentage = (sumValue / TotalAmt ) * 100;
+		
+			
+			if (isNaN(percentage)) {
+				percentage = 0;
+			}
+			
+			percentageDisplay.textContent = `${percentage.toFixed(2)}%`;
+			
+			// Update the progress bar width based on the percentage
+			const progressBar = document.getElementById('progress-bar');
+			progressBar.style.width = `${percentage}%`;
 
 			}
 		});
@@ -522,6 +529,53 @@ progressBar.style.width = `${percentage}%`;
 		data: ''
 	})).appendTo(page.body);
 
+	// frappe.listview_settings['Opportunity'] = {
+	// 	button: {
+	// 		show: function(doc) {
+	// 			return true;
+	// 		},
+	// 		get_label: function(doc) {
+	// 			return __("Comments");
+	// 		},
+	// 		get_description: function(doc) {
+	// 			return __('Show comments of {0}', [doc.name]);
+	// 		},
+	// 		action: function(doc) {
+	// 			get_comments(doc);
+	// 		}
+	// 	}
+	// };
+	
+	// let get_comments = function(doc) {
+	// 	var message_display = "";
+	// 	frappe.call({
+	// 			method: 'ce_customization.ce_customization.page.custom_crm_dashboard.custom_crm_dashboard.get_comments',
+	// 			args: {
+	// 				parent_docname: doc.name,  // Pass the name of the parent document
+	// 			},
+	// 			callback: function(r) {
+	// 				if (r.message) {
+	// 					console.log(r)
+	// 					// Process the data from ChildType here
+	// 					var childData = r.message;
+	// 					console.log(childData);
+	// 					message_display = message_display+ "<div>";
+						
+	// 					for (var i = 0; i < childData.length; i++) {
+	// 						var dt = childData[i];
+	// 						message_display = message_display + "<p><b>" + dt.added_on.substring(0,19) + "</b> " + dt.note + "</p>";
+	// 					}
+						
+	// 					message_display = message_display+ "</div>";
+						
+	// 					frappe.msgprint(message_display, 'Comment list with opportunity (' + doc.name + ')')
+						
+	// 				}
+	// 			}
+	// 	});
+		
+	// };
+	
 	// Call the function to fetch and display the data
 	opportunity_val();
 	//total_lead();
@@ -532,6 +586,10 @@ progressBar.style.width = `${percentage}%`;
 	count();
 	count_change();
 	chart();
+	//get_comments();
+
+	
+	
 
 	// document.querySelector("#referesh").addEventListener('click', () => {
 	// 	console.log("referesh clicked")
