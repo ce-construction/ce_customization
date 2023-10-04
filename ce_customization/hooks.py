@@ -33,6 +33,7 @@ app_include_js = "/assets/ce_customization/js/shortcut_key.js"
 doctype_js = {
 	"Issue": "public/js/support/support.js",
 	"Opportunity":"public/js/opportunity/opportunity.js",
+	"User": "public/js/user/user.js",
 }
 # d
 

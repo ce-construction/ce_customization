@@ -1,0 +1,7 @@
+/* .grid-buttons {
+    display: none;
+  } */
+
+  .row-index > span
+  {display:none;
+}

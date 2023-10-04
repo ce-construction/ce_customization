@@ -52,7 +52,8 @@ def get_data(filters):
     #conditions = " WHERE creation BETWEEN '" + filters_from+ "' AND '" + filters.to+ "'"
     from_date = filters.get('_from')
     to_date = filters.get('to') 
-    
+   # particular_item = filters.get('item_name_')
+
     sql_query = """
  WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,user_name,closed_by,subject) AS (
     SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject 
@@ -67,36 +68,44 @@ def get_data(filters):
     JOIN `tabIT Stock` AS si ON so.name = si.parent
     JOIN `tabDateMiti` AS sa ON so.date_ = sa.date
     WHERE so.checked_by != ''
-)
+    )
     SELECT * FROM CTENote 
     WHERE {from_filter}
-    {to_filter} 
+    {to_filter}
     """
     from_filter = ""
     to_filter = ""
+    filter_condition = ""
+    
 
     if from_date:
         from_filter = f" (DATE(resolution_date) >= '{from_date}')"
 
     if to_date:
         to_filter = f" AND (DATE(resolution_date) <= '{to_date}')"
-
+    # if particular_item:
+    #     particular = f" AND '{particular_item}'"
     # Insert the 'from_filter' and 'to_filter' into the SQL query
     sql_query = sql_query.format(from_filter=from_filter, to_filter=to_filter)
 
     
 
     for fieldname, value in filters.items():
-        if fieldname == '_from':
-            pass
-        elif fieldname == 'to':
-            pass
-        else:
-            fieldname += f" AND {fieldname} = '{value}'"
-            print(sql_query)
+        if fieldname not in ['_from', 'to']:
+        # Build a list of additional filter conditions
+            filter_condition += f" AND {fieldname} = '{value}'"
+            sql_query += filter_condition
+        # if fieldname == '_from':
+        #     pass
+        # elif fieldname == 'to':
+        #     pass
+        # else:
+        #     fieldname += f" AND {fieldname} = '{value}'"
+            #print(sql_query)
 #    # if filters.get('subject'): conditions += f" AND subject='{filters.get('subject')}' "
-       
-    sql_query = sql_query + " ORDER BY resolution_date DESC"
+    #additional_filters_str = " AND ".join(additional_filters)  
+   # sql_query +=  fieldname
+    sql_query +=  " ORDER BY resolution_date DESC"
 #     #print(f"\n\n{conditions}\n\n")
     all_data = frappe.db.sql(sql_query)
 

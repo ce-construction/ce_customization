@@ -82,13 +82,15 @@
   {
    "fieldname": "checked_by",
    "fieldtype": "Data",
-   "label": "Checked By"
+   "label": "Checked By",
+   "read_only":1
   },
   {
    "bold": 1,
    "fieldname": "approved_by",
    "fieldtype": "Data",
-   "label": "Received By"
+   "label": "Received By",
+   "read_only":1
   },
   {
    "fieldname": "c3",
