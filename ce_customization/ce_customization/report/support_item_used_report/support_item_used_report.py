@@ -56,15 +56,15 @@ def get_data(filters):
    # particular_item = filters.get('item_name_')
 
     sql_query = """
- WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,user_name,closed_by,subject) AS (
-    SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.user_name, so.closed_by,so.subject 
+ WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,custom_item_used_from_site,user_name,closed_by,subject) AS (
+    SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.custom_item_used_from_site as custom_item_used_from_site,so.user_name, so.closed_by,so.subject 
     FROM `tabIssue` AS so 
     JOIN `tabSupport Item` AS si ON so.name = si.parent
     JOIN `tabDateMiti` AS sa ON DATE(so.resolution_date) = sa.date
 
     UNION
 
-    SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject 
+    SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,so.from_ as custom_item_used_from_site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject 
     FROM `tabChallan` as so 
     JOIN `tabIT Stock` AS si ON so.name = si.parent
     JOIN `tabDateMiti` AS sa ON so.date_ = sa.date
@@ -155,9 +155,18 @@ def get_columns():
             #'align':'left',
 			'width':'90'
         },
+        
         {
 			'fieldname': 'site',
             'label': ('Site/Department'),
+            'fieldtype': 'Link',
+        	'options': 'Branch',
+            'align':'left',
+			'width':'130'
+        },
+        {
+			'fieldname': 'custom_item_used_from_site',
+            'label': ('Item Used Site'),
             'fieldtype': 'Link',
         	'options': 'Branch',
             'align':'left',

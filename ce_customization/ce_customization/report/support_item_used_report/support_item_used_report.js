@@ -10,14 +10,21 @@
 frappe.query_reports["Support Item Used Report"] = {
     
 	"filters": [
-        
         {
-			'fieldname': 'site',
-            'label':__('Site'),
+			'fieldname': 'custom_item_used_from_site',
+            'label':__('Item Used Site'),
             'fieldtype': 'Link',
         	'options': 'Branch',
 			//'css_class': 'small'
         },
+        
+        // {
+		// 	'fieldname': 'site',
+        //     'label':__('Site'),
+        //     'fieldtype': 'Link',
+        // 	'options': 'Branch',
+		// 	//'css_class': 'small'
+        // },
 
         // {
 		// 	'fieldname': 'department',
