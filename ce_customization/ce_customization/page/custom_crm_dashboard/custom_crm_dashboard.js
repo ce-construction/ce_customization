@@ -505,12 +505,14 @@ frappe.pages['custom-crm-dashboard'].on_page_load = function (wrapper) {
 
             // Display the percentage in your HTML
 			const percentageDisplay = document.getElementById('percent');
-			const percentage = (sumValue / TotalAmt ) * 100;
-		
+			let  percentage = 0;
+			//const percentage = (0/ 0 ) * 100;
 			
-			if (isNaN(percentage)) {
-				percentage = 0;
+			if (TotalAmt!== 0) {
+				percentage = (sumValue / TotalAmt ) * 100;
 			}
+		
+		
 			
 			percentageDisplay.textContent = `${percentage.toFixed(2)}%`;
 			
