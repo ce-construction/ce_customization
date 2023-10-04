@@ -99,7 +99,7 @@ def get_data(filters):
     for fieldname, value in filters.items():
         if fieldname not in ['_from', 'to']:
         # Build a list of additional filter conditions
-            filter_condition += f" AND {fieldname} like '%{value}%'"
+            filter_condition += f" AND {fieldname} like '{value}%'"
             sql_query += filter_condition
         #if fieldname == '_from':
         #     pass

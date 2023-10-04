@@ -1,4 +1,26 @@
 frappe.ui.form.on('Challan', {
+
+    validate: function (frm) {
+        if(frm.doc.from_ === frm.doc.to_){
+            frappe.msgprint
+                     ({
+                        title: __('<span style ="color:red">⚠️ </span> Warning'),
+                        message: __('From and To cannot have same site'),
+                        indicator: 'red',
+                        primary_action: 
+                        {
+                            label: __('Close'),
+                            action: function() 
+                            {
+                                // Do something when the user clicks "OK"
+                                cur_dialog.hide();
+                            }
+                        }
+                    });
+                frappe.validated = false;
+        }
+
+    },
 		refresh:function(frm){
 	    
 	    if(!frm.doc.__islocal){
