@@ -15,6 +15,7 @@ frappe.query_reports["Support Item Used Report"] = {
             'label':__('Item Used Site'),
             'fieldtype': 'Link',
         	'options': 'Branch',
+            'default':'H/O'
 			//'css_class': 'small'
         },
         
