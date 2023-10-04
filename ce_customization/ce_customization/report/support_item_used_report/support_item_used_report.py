@@ -52,6 +52,7 @@ def get_data(filters):
     #conditions = " WHERE creation BETWEEN '" + filters_from+ "' AND '" + filters.to+ "'"
     from_date = filters.get('_from')
     to_date = filters.get('to') 
+  
    # particular_item = filters.get('item_name_')
 
     sql_query = """
@@ -75,7 +76,8 @@ def get_data(filters):
     """
     from_filter = ""
     to_filter = ""
-    filter_condition = ""
+    # site_filter = ""
+    
     
 
     if from_date:
@@ -83,19 +85,23 @@ def get_data(filters):
 
     if to_date:
         to_filter = f" AND (DATE(resolution_date) <= '{to_date}')"
+
+    # if site_filter:
+    #     to_filter = f" AND site_single like '%{site_filter}%')"
+    
     # if particular_item:
     #     particular = f" AND '{particular_item}'"
     # Insert the 'from_filter' and 'to_filter' into the SQL query
     sql_query = sql_query.format(from_filter=from_filter, to_filter=to_filter)
 
-    
+    filter_condition = ""
 
     for fieldname, value in filters.items():
         if fieldname not in ['_from', 'to']:
         # Build a list of additional filter conditions
-            filter_condition += f" AND {fieldname} = '{value}'"
+            filter_condition += f" AND {fieldname} like '%{value}%'"
             sql_query += filter_condition
-        # if fieldname == '_from':
+        #if fieldname == '_from':
         #     pass
         # elif fieldname == 'to':
         #     pass
