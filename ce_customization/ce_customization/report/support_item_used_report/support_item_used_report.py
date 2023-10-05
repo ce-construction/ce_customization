@@ -101,6 +101,8 @@ def get_data(filters):
         # Build a list of additional filter conditions
             filter_condition += f" AND {fieldname} like '{value}%'"
             sql_query += filter_condition
+        else:
+            pass
         #if fieldname == '_from':
         #     pass
         # elif fieldname == 'to':

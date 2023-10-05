@@ -27,7 +27,7 @@ frappe.query_reports["Support Item Used Report"] = {
 		// 	//'css_class': 'small'
         // },
 
-        // {
+        
 		// 	'fieldname': 'department',
         //     'label': __('Department'),
         //     'fieldtype': 'Link',
