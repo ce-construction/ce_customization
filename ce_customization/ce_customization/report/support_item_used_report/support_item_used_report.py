@@ -114,9 +114,11 @@ def get_data(filters):
     #additional_filters_str = " AND ".join(additional_filters)  
    # sql_query +=  fieldname
     sql_query +=  " ORDER BY resolution_date DESC"
+    #frappe.msgprint(("This is a basic message."))
+
 #     #print(f"\n\n{conditions}\n\n")
     all_data = frappe.db.sql(sql_query)
-
+    print(all_data)
     return all_data 
 
 def get_columns():

@@ -1,11 +1,3 @@
-// Copyright (c) 2023, ce construction and contributors
-// For license information, please see license.txt
-
-
-
-
-
-
 
 frappe.query_reports["Support Item Used Report"] = {
     
@@ -19,20 +11,7 @@ frappe.query_reports["Support Item Used Report"] = {
 			//'css_class': 'small'
         },
         
-        // {
-		// 	'fieldname': 'site',
-        //     'label':__('Site'),
-        //     'fieldtype': 'Link',
-        // 	'options': 'Branch',
-		// 	//'css_class': 'small'
-        // },
-
         
-		// 	'fieldname': 'department',
-        //     'label': __('Department'),
-        //     'fieldtype': 'Link',
-        // 	'options': 'Department'
-        // },
       
         {
 			'fieldname': 'item_name_',
@@ -53,27 +32,38 @@ frappe.query_reports["Support Item Used Report"] = {
 			'fieldname': '_from',
             'label': __('From Date'),
             'fieldtype': 'Date',
-            'default':frappe.datetime.add_months(frappe.datetime.get_today(), -1)
+            'default':frappe.datetime.add_months(frappe.datetime.get_today(), -1),
+            'reqd': 1
 		},
 		{
 			'fieldname': 'to',
             'label': __('To Date'),
             'fieldtype': 'Date',
-            'default':frappe.datetime.get_today()
-        },
-        // {
-		// 	'fieldname': 'item_code',
-        //     'label': __('Item Code'),
-        //     'fieldtype': 'Link',
-        //     'options': 'Item'
-        // }
-      
-        // {
-		// 	'fieldname': 'subject',
-        //     'label': __('Particular'),
-        //     'fieldtype': 'Data',
-        //     //'options': 'Account'
-        // },
+            'default':frappe.datetime.get_today(),
+            'reqd': 1
+            
+        }
 
-	]
+	],
+    "onload": function (report) {
+        // Add an event listener to the "_from" date field
+        report.page.fields_dict['_from'].$input.on('change', function () {
+            // Reload the page when the "_from" date field changes
+            report.refresh();
+        });
+        report.page.fields_dict['to'].$input.on('change', function () {
+            // Reload the page when the "_from" date field changes
+            report.refresh();
+        });
+    }
+    
 };
+
+
+
+
+
+
+
+
+
