@@ -80,16 +80,7 @@ frappe.ui.form.on('Issue', {
 		});
 
 
-        frappe.call({
-            method: 'ce_customization.ce_customization.ce_customization.get_values_from_child_table',
-            args: {},
-            callback: function(r) {
-                console.log(r.message)
-                frm.set_value('custom_item_used_from_site', r.message);
-                frm.set_value('site', r.message);
-                
-            }
-        });
+        
 	},
 
     validate: function (frm) 
@@ -395,6 +386,19 @@ frappe.ui.form.on('Issue', {
             // }}
         },
 	refresh:function(frm){
+
+
+        frappe.call({
+            method: 'ce_customization.ce_customization.ce_customization.get_values_from_child_table',
+            args: {},
+            callback: function(r) {
+                console.log(r.message)
+                frm.set_value('custom_item_used_from_site', r.message);
+                frm.set_value('site', r.message);
+                
+            }
+        });
+        
 	if(frm.doc.status === "Open")
 	{
     frm.add_custom_button(__("Close"), function() {
