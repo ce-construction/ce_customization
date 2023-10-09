@@ -526,7 +526,6 @@ frappe.pages['custom-crm-dashboard'].on_page_load = function (wrapper) {
 	
 
 
-
 	$(frappe.render_template("custom_crm_dashboard", {
 		data: ''
 	})).appendTo(page.body);
