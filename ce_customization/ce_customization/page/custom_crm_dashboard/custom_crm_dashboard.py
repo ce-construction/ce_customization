@@ -95,3 +95,4 @@ ORDER BY month(creation);""", as_dict=True)
 #     parent_docname = frappe.form_dict.parent_docname
 #     data = frappe.get_list('CRM Note', filters={'parent': parent_docname}, fields=['note', 'added_on'], order_by='added_on asc')
 #     frappe.response['message'] = data
+
