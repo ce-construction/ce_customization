@@ -393,10 +393,11 @@ frappe.ui.form.on('Issue', {
             args: {},
             callback: function(r) {
                 console.log(r.message)
+                if(!frm.doc.site){
                 frm.set_value('custom_item_used_from_site', r.message);
                 frm.set_value('site', r.message);
                 
-            }
+            }}
         });
         
 	if(frm.doc.status === "Open")
