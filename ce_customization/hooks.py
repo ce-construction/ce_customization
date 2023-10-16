@@ -13,6 +13,7 @@ app_license = "MIT"
 # include js, css files in header of desk.html
 app_include_css = "/assets/ce_customization/css/custom_.css"
 app_include_js = "/assets/ce_customization/js/shortcut_key.js"
+#app_include_js = "/assets/ce_customization/js/opportunity_list.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/ce_customization/css/ce_customization.css"
@@ -33,11 +34,12 @@ app_include_js = "/assets/ce_customization/js/shortcut_key.js"
 doctype_js = {
 	"Issue": "public/js/support/support.js",
 	"Opportunity":"public/js/opportunity/opportunity.js",
-	"User": "public/js/user/user.js",
+	"User": "public/js/user/user.js"
+	
 }
-# d
 
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+
+doctype_list_js = {"Opportunity" : "public/js/opportunity_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 

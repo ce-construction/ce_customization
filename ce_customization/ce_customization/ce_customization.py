@@ -14,4 +14,11 @@ def get_values_from_child_table():
         child_field2 = row.site # Replace "fieldname2" with the actual field name
         if frappe.session.user == child_field1:
             return child_field2
-        
+ 
+@frappe.whitelist(allow_guest=True)
+def get_comments():
+	parent_docname = frappe.form_dict.parent_docname;
+	data = frappe.db.sql("select `note`, `added_on` FROM `tabCRM Note` where parent = '"+ parent_docname +"'", as_dict=True)
+	#frappe.response['message'] =data
+	return data
+
