@@ -17,7 +17,7 @@
         padding-top: 10px;
     }
 
-    span.float-right{
+    span.float-right {
         padding-right: 10px;
     }
 
@@ -44,19 +44,8 @@
         grid-template-columns: 1fr 1.5fr 1fr !important;
     }
 
-    @media only screen and (max-width: 767px) {
-        .widget-group-body {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        }
-    }
-
-    @media only screen and (max-width: 412px) {
-        .widget-group-body {
-            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-        }
-    }
-
 }
+    .unique-page {
     /* table css start */
     div.scrollable-table-wrapper {
         max-height: 250px;
@@ -65,18 +54,20 @@
         margin: 0;
         width: 100%;
         position: relative;
-    
-        }
-        
-        thead {
-            position: sticky;
-            top: 0px;
-            background-color: white;
-            border-bottom: 4px rgba(60, 64, 61, 0.16) solid !important;
-            font-size: smaller;
-            
-        }
-    td,th {
+
+    }
+
+    thead {
+        position: sticky;
+        top: 0px;
+        background-color: white;
+        border-bottom: 4px rgba(60, 64, 61, 0.16) solid !important;
+        font-size: smaller;
+
+    }
+
+    td,
+    th {
         border-bottom: 0.5px rgba(60, 64, 61, 0.16) solid !important;
 
     }
@@ -87,20 +78,38 @@
         text-align: left;
         padding: 5px;
     }
+
     .widget-subtitle {
         margin-bottom: 5px;
     }
+
     table tr:last-child {
         border-bottom: 3px rgba(244, 251, 245, 0.16) solid !important;
     }
+
     table td:nth-child(n+2) {
         text-align: end;
     }
+
     .positive {
-        color: #1ccc1c;;
+        color: #1ccc1c;
+        ;
     }
 
     .negative {
         color: rgb(179, 26, 26);
     }
 
+
+@media only screen and (max-width: 767px) {
+    .widget-group-body {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media only screen and (max-width: 412px) {
+    .widget-group-body {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+}
+}
