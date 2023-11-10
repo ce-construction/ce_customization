@@ -1,57 +1,58 @@
-.unique-page h3 {
+ .unique-page { 
+ h3 {
     margin-bottom: 0px;
 }
 
-.unique-page .content {
+.content {
     padding-top: 5px;
 }
 
-.unique-page .widget.number-widget-box {
+.widget.number-widget-box {
     min-height: 300px;
     color: #1f272e;
     ;
 }
 
-.unique-page .widget-body {
+.widget-body {
     padding-top: 10px;
 }
 
-.unique-page span.float-right{
+span.float-right{
     padding-right: 10px;
 }
 
-.unique-page .progressbar-group {
+.progressbar-group {
     padding-bottom: 15px;
 }
 
-.unique-page p {
+p {
     margin-bottom: 5px;
 }
 
-.unique-page .scroll {
+.scroll {
     height: 205px;
     overflow: auto;
 
 }
 
-.unique-page .row {
+.row {
     margin-left: 0px;
 }
 
-.unique-page .widget-group-body {
+.widget-group-body {
     display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr !important;
 }
 
 @media only screen and (max-width: 767px) {
-    .unique-page .widget-group-body {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .widget-group-body {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
 
 @media only screen and (max-width: 412px) {
-    .unique-page .widget-group-body {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
+    .widget-group-body {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
     }
 }
 
@@ -103,4 +104,4 @@ table td:nth-child(n+2) {
     color: rgb(179, 26, 26);
 }
 
-
+}
