@@ -113,7 +113,7 @@ def get_data(filters):
 #    # if filters.get('subject'): conditions += f" AND subject='{filters.get('subject')}' "
     #additional_filters_str = " AND ".join(additional_filters)  
    # sql_query +=  fieldname
-    sql_query +=  " ORDER BY resolution_date DESC"
+    sql_query +=  " ORDER BY resolution_date ASC"
     #frappe.msgprint(("This is a basic message."))
 
 #     #print(f"\n\n{conditions}\n\n")
