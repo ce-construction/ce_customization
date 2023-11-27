@@ -56,21 +56,56 @@ def get_data(filters):
    # particular_item = filters.get('item_name_')
 
     sql_query = """
- WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,custom_item_used_from_site,user_name,closed_by,subject) AS (
-    SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.custom_item_used_from_site as custom_item_used_from_site,so.user_name, so.closed_by,so.subject 
-    FROM `tabIssue` AS so 
+#  WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,custom_item_used_from_site,user_name,closed_by,subject) AS (
+#     SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.custom_item_used_from_site as custom_item_used_from_site,so.user_name, so.closed_by,so.subject 
+#     FROM `tabIssue` AS so 
+#     JOIN `tabSupport Item` AS si ON so.name = si.parent
+#     JOIN `tabDateMiti` AS sa ON DATE(so.resolution_date) = sa.date
+
+#     UNION
+
+#     SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,so.from_ as custom_item_used_from_site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject 
+#     FROM `tabChallan` as so 
+#     JOIN `tabIT Stock` AS si ON so.name = si.parent
+#     JOIN `tabDateMiti` AS sa ON so.date_ = sa.date
+#     WHERE so.checked_by != ''
+#     )
+#     SELECT * FROM CTENote 
+WITH CTENote (name, resolution_date, nepali_miti, item_name_, quantity, site, custom_item_used_from_site, user_name, closed_by, subject) AS (
+    SELECT
+        so.name COLLATE utf8mb4_unicode_ci,
+        DATE(so.resolution_date) as resolution_date,
+        sa.nepali_miti COLLATE utf8mb4_unicode_ci,
+        CONCAT(si.item_name_, CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) COLLATE utf8mb4_unicode_ci as item_name_,
+        si.quantity COLLATE utf8mb4_unicode_ci as quantity,
+        CONCAT(so.site, CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) COLLATE utf8mb4_unicode_ci as site,
+        so.custom_item_used_from_site COLLATE utf8mb4_unicode_ci as custom_item_used_from_site,
+        so.user_name COLLATE utf8mb4_unicode_ci as user_name,
+        so.closed_by COLLATE utf8mb4_unicode_ci as closed_by,
+        so.subject COLLATE utf8mb4_unicode_ci as subject
+    FROM `tabIssue` AS so
     JOIN `tabSupport Item` AS si ON so.name = si.parent
     JOIN `tabDateMiti` AS sa ON DATE(so.resolution_date) = sa.date
 
     UNION
 
-    SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,so.from_ as custom_item_used_from_site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject 
-    FROM `tabChallan` as so 
+    SELECT
+        so.name COLLATE utf8mb4_unicode_ci,
+        so.date_ as resolution_date,
+        sa.nepali_miti COLLATE utf8mb4_unicode_ci,
+        CONCAT(si.particular, CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) COLLATE utf8mb4_unicode_ci as item_name_,
+        si.quantity_ COLLATE utf8mb4_unicode_ci as quantity,
+        CONCAT(so.from_, " To ", so.to_) COLLATE utf8mb4_unicode_ci as site,
+        so.from_ COLLATE utf8mb4_unicode_ci as custom_item_used_from_site,
+        si.user_name_ COLLATE utf8mb4_unicode_ci as user_name,
+        so.prepared_by COLLATE utf8mb4_unicode_ci as closed_by,
+        CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ', IFNULL(si.remarks_, '')) COLLATE utf8mb4_unicode_ci as subject
+    FROM `tabChallan` as so
     JOIN `tabIT Stock` AS si ON so.name = si.parent
     JOIN `tabDateMiti` AS sa ON so.date_ = sa.date
-    WHERE so.checked_by != ''
-    )
-    SELECT * FROM CTENote 
+    WHERE so.checked_by != ""
+)
+SELECT * FROM CTENote
     WHERE {from_filter}
     {to_filter}
     """
