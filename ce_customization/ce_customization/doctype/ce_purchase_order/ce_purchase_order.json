@@ -77,7 +77,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "series",
-   "options": "PO-POC-\nPO-AED-",
+   "options": "PO-POC-\nPO-AED-\nPO-IT-",
    "reqd": 1
   },
   {
