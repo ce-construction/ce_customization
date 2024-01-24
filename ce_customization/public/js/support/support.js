@@ -105,7 +105,23 @@ frappe.ui.form.on('Issue', {
                                 // Do something when the user clicks "OK"
                                 cur_dialog.hide();
                             }
-                        }
+                        },
+                        secondary_action: {
+                            label: __('copy'),
+                            action: function () {
+                                if (navigator.clipboard) {
+                                    navigator.clipboard.writeText("message")
+                                        .then(function () {
+                                            alert("Copied the text: " + "message");
+                                        })
+                                        .catch(function (err) {
+                                            console.error('Unable to copy text to clipboard', err);
+                                        });
+                                } else {
+                                    console.log('Clipboard API not supported in this browser');
+                                    // You may want to provide an alternative method for copying if clipboard is not supported
+                                }
+                            }},
                     });
                     frappe.validated = false;
                 }

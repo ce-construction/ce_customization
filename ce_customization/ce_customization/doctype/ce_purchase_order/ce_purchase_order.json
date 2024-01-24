@@ -1,0 +1,329 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-01-11 15:19:34.281214",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "department",
+  "column_break_pxuf",
+  "column_break_cxyu",
+  "column_break_bvmo",
+  "naming_series",
+  "section_break_qted",
+  "date",
+  "column_break_aeid",
+  "nepali_date",
+  "column_break_rrmj",
+  "required_by",
+  "column_break_djjh",
+  "required_by_nepali",
+  "section_break_tdba",
+  "column_break_ymkd",
+  "supplier",
+  "column_break_wrjy",
+  "project",
+  "column_break_ijld",
+  "section_break_hanz",
+  "supplier_contact_name",
+  "supplier_contact_no",
+  "column_break_fbvp",
+  "supplier_address_details",
+  "column_break_rrtf",
+  "project_contact_name",
+  "project_contact_no",
+  "column_break_skoc",
+  "project_address",
+  "section_break_csvf",
+  "item_list",
+  "section_break_lqbn",
+  "term_and_condition",
+  "term_and_condition_details",
+  "column_break_icdm",
+  "sub_total",
+  "column_break_liht",
+  "discount",
+  "column_break_dzrt",
+  "total",
+  "vat_",
+  "vat",
+  "grand_total",
+  "section_break_gaxc",
+  "grand_total_in_words",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_pxuf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cxyu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_bvmo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "series",
+   "options": "PO-POC-\nPO-AED-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_qted",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_aeid",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nepali_date",
+   "fieldtype": "Data",
+   "label": "Nepali Date"
+  },
+  {
+   "fieldname": "column_break_rrmj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "required_by",
+   "fieldtype": "Date",
+   "label": "Required By"
+  },
+  {
+   "fieldname": "column_break_djjh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "required_by_nepali",
+   "fieldtype": "Data",
+   "label": "Required By Nepali"
+  },
+  {
+   "fieldname": "section_break_tdba",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_ymkd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "CE Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_wrjy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "column_break_ijld",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_hanz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "supplier_contact_name",
+   "fieldtype": "Data",
+   "label": "Supplier Contact Name"
+  },
+  {
+   "fieldname": "supplier_contact_no",
+   "fieldtype": "Data",
+   "label": "Supplier Contact No"
+  },
+  {
+   "fieldname": "column_break_fbvp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_address_details",
+   "fieldtype": "Small Text",
+   "label": "Supplier Address Details"
+  },
+  {
+   "fieldname": "column_break_rrtf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project_contact_name",
+   "fieldtype": "Data",
+   "label": "Project Contact Name"
+  },
+  {
+   "fieldname": "project_contact_no",
+   "fieldtype": "Data",
+   "label": "Project Contact No "
+  },
+  {
+   "fieldname": "column_break_skoc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project_address",
+   "fieldtype": "Small Text",
+   "label": "Project Address"
+  },
+  {
+   "fieldname": "section_break_csvf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item_list",
+   "fieldtype": "Table",
+   "label": "Item List",
+   "options": "CE Purchase Order Child",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_lqbn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "term_and_condition",
+   "fieldtype": "Link",
+   "label": "Term and Condition",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "term_and_condition_details",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "column_break_icdm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sub_total",
+   "fieldtype": "Currency",
+   "label": "Sub Total",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_liht",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "discount",
+   "fieldtype": "Currency",
+   "label": "Discount"
+  },
+  {
+   "fieldname": "column_break_dzrt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "reqd": 1
+  },
+  {
+   "default": "13",
+   "fieldname": "vat_",
+   "fieldtype": "Percent",
+   "label": "Vat %"
+  },
+  {
+   "default": "0",
+   "fieldname": "vat",
+   "fieldtype": "Currency",
+   "label": "Vat",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_gaxc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": " ",
+   "fieldname": "grand_total_in_words",
+   "fieldtype": "Data",
+   "label": "Grand total in words",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "CE Purchase Order",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "CE Supplier",
+   "link_fieldname": "supplier_name"
+  }
+ ],
+ "modified": "2024-01-16 21:36:51.255547",
+ "modified_by": "Administrator",
+ "module": "Ce Customization",
+ "name": "CE Purchase Order",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

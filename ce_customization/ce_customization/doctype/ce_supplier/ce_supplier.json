@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:CE-SP-{####}",
+ "creation": "2024-01-15 19:07:26.659789",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "supplier_information_section",
+  "supplier_name",
+  "column_break_xkhx",
+  "erp_id",
+  "column_break_fipi",
+  "column_break_gftr",
+  "address_and_contact_information_section",
+  "supplier_address",
+  "column_break_ianu",
+  "supplier_contact_name",
+  "column_break_enef",
+  "supplier_contact_person",
+  "column_break_myfu"
+ ],
+ "fields": [
+  {
+   "fieldname": "erp_id",
+   "fieldtype": "Data",
+   "label": "ERP ID"
+  },
+  {
+   "fieldname": "supplier_information_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Information"
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier  Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_xkhx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_fipi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_and_contact_information_section",
+   "fieldtype": "Section Break",
+   "label": "Address and Contact Information"
+  },
+  {
+   "fieldname": "supplier_address",
+   "fieldtype": "Data",
+   "label": "Supplier Address"
+  },
+  {
+   "fieldname": "column_break_ianu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_contact_name",
+   "fieldtype": "Data",
+   "label": "Supplier Contact Name"
+  },
+  {
+   "fieldname": "column_break_enef",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "supplier_contact_person",
+   "fieldtype": "Data",
+   "label": "Supplier Contact Person"
+  },
+  {
+   "fieldname": "column_break_gftr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_myfu",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-15 19:41:08.227155",
+ "modified_by": "Administrator",
+ "module": "Ce Customization",
+ "name": "CE Supplier",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

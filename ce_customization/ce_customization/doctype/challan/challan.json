@@ -50,6 +50,7 @@
   {
    "fieldname": "to_",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "To",
    "options": "Branch",
    "reqd": 1
@@ -83,14 +84,14 @@
    "fieldname": "checked_by",
    "fieldtype": "Data",
    "label": "Checked By",
-   "read_only":1
+   "read_only": 1
   },
   {
    "bold": 1,
    "fieldname": "approved_by",
    "fieldtype": "Data",
    "label": "Received By",
-   "read_only":1
+   "read_only": 1
   },
   {
    "fieldname": "c3",
@@ -118,7 +119,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-21 15:39:50.477670",
+ "modified": "2024-01-07 10:56:26.339689",
  "modified_by": "Administrator",
  "module": "Ce Customization",
  "name": "Challan",

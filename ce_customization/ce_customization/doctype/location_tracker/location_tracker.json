@@ -1,0 +1,46 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-12 13:47:15.684887",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "map_section",
+  "geolocation_lhfy"
+ ],
+ "fields": [
+  {
+   "fieldname": "map_section",
+   "fieldtype": "Section Break",
+   "label": "Map"
+  },
+  {
+   "fieldname": "geolocation_lhfy",
+   "fieldtype": "Geolocation"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-12 13:47:32.027928",
+ "modified_by": "Administrator",
+ "module": "Ce Customization",
+ "name": "Location Tracker",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
