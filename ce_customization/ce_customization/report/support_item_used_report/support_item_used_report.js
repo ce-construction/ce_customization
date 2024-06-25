@@ -94,7 +94,7 @@ frappe.query_reports["Support Item Used Report"] = {
         }
     
         ['_from', 'to'].forEach(function(fieldName) {
-            report.page.fields_dict[fieldName].$input.on('change', function () {
+            report.page.fields_dict[fieldName].$input.on('input', function () {
                 report.refresh();
             });
             setupDatePicker(fieldName + '_nepali');
