@@ -11,8 +11,7 @@ frappe.query_reports["Support Item Used Report"] = {
             'css_class': 'custom-width'
            
 			//'css_class': 'small'
-        },
-        
+        },       
         
       
         {
@@ -20,14 +19,6 @@ frappe.query_reports["Support Item Used Report"] = {
             'label': __('Particulars'),
             'fieldtype': 'Data',
             //'options': 'Item'
-        },
-
-        {
-            'fieldname': 'user_name',
-            'label': __('User name'),
-            'fieldtype': 'Data',
-            'width':'120'
-            //'options': 'Account'
         },
 
 		{
@@ -62,7 +53,13 @@ frappe.query_reports["Support Item Used Report"] = {
            
             
         },
-        
+        {
+            'fieldname': 'user_name',
+            'label': __('User name'),
+            'fieldtype': 'Data',
+            'width':'120'
+            //'options': 'Account'
+        },        
 
 
 	],
@@ -92,6 +89,7 @@ frappe.query_reports["Support Item Used Report"] = {
                     englishdate = englishdate.formatted;
                 }
                 report.page.fields_dict[fieldName + '_nepali'].$input.val(englishdate);
+                report.page.set_filter_value(fieldName, englishdate);
             });
         }
     
