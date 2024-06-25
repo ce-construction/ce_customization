@@ -27,7 +27,9 @@ app_include_js = "/assets/ce_customization/js/shortcut_key.js"
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
-# page_js = {"page" : "public/js/file.js"}
+page_js = {
+    "print" : "public/js/print_button.js"
+}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}

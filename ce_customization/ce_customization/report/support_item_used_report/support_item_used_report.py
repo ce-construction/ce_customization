@@ -52,6 +52,11 @@ def get_data(filters):
     #conditions = " WHERE creation BETWEEN '" + filters_from+ "' AND '" + filters.to+ "'"
     from_date = filters.get('_from')
     to_date = filters.get('to') 
+
+    if '_from_nepali' in filters:
+        del filters['_from_nepali']
+    if 'to_nepali' in filters:
+        del filters['to_nepali']
   
    # particular_item = filters.get('item_name_')
 
