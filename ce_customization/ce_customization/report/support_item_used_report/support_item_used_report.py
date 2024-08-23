@@ -12,11 +12,11 @@ def execute(filters=None):
 
 	# message = [
     # "'<b>Filter</b>' is <span style='color:Red;'>not working</span>",
-   
+
 #]
 
 	return get_columns(), get_data(filters), #message
-   
+
 
 # 	query = """
 #     SELECT
@@ -31,13 +31,13 @@ def execute(filters=None):
 #         `tabSupport Item` AS si
 #     ON
 #         so.name = si.parent
-	
+
 # """
 
 	#data = get_all_data_from_list("Issue")
 	# data2 = get_child_table_data("Support Item")
 	#data = frappe.db.sql(query, as_dict=True)
-	
+
 	#return columns, data
 	# if not cs_data:
 	# 	msgprint(_('no record found'))
@@ -51,31 +51,32 @@ def get_data(filters):
 
     #conditions = " WHERE creation BETWEEN '" + filters_from+ "' AND '" + filters.to+ "'"
     from_date = filters.get('_from')
-    to_date = filters.get('to') 
+    to_date = filters.get('to')
 
     if '_from_nepali' in filters:
         del filters['_from_nepali']
     if 'to_nepali' in filters:
         del filters['to_nepali']
-  
+
    # particular_item = filters.get('item_name_')
 
     sql_query = """
 #  WITH CTENote (name,resolution_date,nepali_miti,item_name_,quantity,site,custom_item_used_from_site,user_name,closed_by,subject) AS (
-#     SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.custom_item_used_from_site as custom_item_used_from_site,so.user_name, so.closed_by,so.subject 
-#     FROM `tabIssue` AS so 
+#     SELECT so.name, DATE(so.resolution_date) as resolution_date, sa.nepali_miti ,CONCAT(si.item_name_ ,CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) as item_name_,si.quantity as quantity,CONCAT(so.site ,CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) as site,so.custom_item_used_from_site as custom_item_used_from_site,so.user_name, so.closed_by,so.subject
+#     FROM `tabIssue` AS so
 #     JOIN `tabSupport Item` AS si ON so.name = si.parent
 #     JOIN `tabDateMiti` AS sa ON DATE(so.resolution_date) = sa.date
 
 #     UNION
 
-#     SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,so.from_ as custom_item_used_from_site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject 
-#     FROM `tabChallan` as so 
+#     SELECT so.name, so.date_ as resolution_date, sa.nepali_miti , CONCAT(si.particular ,CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) as item_name_,si.quantity_ as quantity,CONCAT(so.from_," To ",so.to_) as site,so.from_ as custom_item_used_from_site,si.user_name_ as user_name,so.prepared_by as closed_by,CONCAT("Challan No: ", CAST(so.challan AS CHAR), ' ' ,IFNULL(si.remarks_, ''))as subject
+#     FROM `tabChallan` as so
 #     JOIN `tabIT Stock` AS si ON so.name = si.parent
 #     JOIN `tabDateMiti` AS sa ON so.date_ = sa.date
 #     WHERE so.checked_by != ''
 #     )
-#     SELECT * FROM CTENote 
+#     SELECT * FROM CTENote
+#    CONCAT(so.site, CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) COLLATE utf8mb4_unicode_ci as site,
 WITH CTENote (name, resolution_date, nepali_miti, item_name_, quantity, site, custom_item_used_from_site, user_name, closed_by, subject) AS (
     SELECT
         so.name COLLATE utf8mb4_unicode_ci,
@@ -83,7 +84,7 @@ WITH CTENote (name, resolution_date, nepali_miti, item_name_, quantity, site, cu
         sa.nepali_miti COLLATE utf8mb4_unicode_ci,
         CONCAT(si.item_name_, CASE WHEN si.type = 'old' THEN CONCAT(' (', si.type, ')') ELSE '' END) COLLATE utf8mb4_unicode_ci as item_name_,
         si.quantity COLLATE utf8mb4_unicode_ci as quantity,
-        CONCAT(so.site, CASE WHEN so.department IS NOT NULL THEN CONCAT(' - ', so.department) ELSE '' END) COLLATE utf8mb4_unicode_ci as site,
+        (CASE WHEN so.department IS NOT NULL THEN so.department ELSE '' END) COLLATE utf8mb4_unicode_ci as site,
         so.custom_item_used_from_site COLLATE utf8mb4_unicode_ci as custom_item_used_from_site,
         so.user_name COLLATE utf8mb4_unicode_ci as user_name,
         so.closed_by COLLATE utf8mb4_unicode_ci as closed_by,
@@ -117,8 +118,8 @@ SELECT * FROM CTENote
     from_filter = ""
     to_filter = ""
     # site_filter = ""
-    
-    
+
+
 
     if from_date:
         from_filter = f" (DATE(resolution_date) >= '{from_date}')"
@@ -128,7 +129,7 @@ SELECT * FROM CTENote
 
     # if site_filter:
     #     to_filter = f" AND site_single like '%{site_filter}%')"
-    
+
     # if particular_item:
     #     particular = f" AND '{particular_item}'"
     # Insert the 'from_filter' and 'to_filter' into the SQL query
@@ -151,7 +152,7 @@ SELECT * FROM CTENote
         #     fieldname += f" AND {fieldname} = '{value}'"
             #print(sql_query)
 #    # if filters.get('subject'): conditions += f" AND subject='{filters.get('subject')}' "
-    #additional_filters_str = " AND ".join(additional_filters)  
+    #additional_filters_str = " AND ".join(additional_filters)
    # sql_query +=  fieldname
     sql_query +=  " ORDER BY resolution_date ASC"
     #frappe.msgprint(("This is a basic message."))
@@ -159,7 +160,7 @@ SELECT * FROM CTENote
 #     #print(f"\n\n{conditions}\n\n")
     all_data = frappe.db.sql(sql_query)
     print(all_data)
-    return all_data 
+    return all_data
 
 def get_columns():
 	return[
@@ -167,11 +168,11 @@ def get_columns():
             'fieldname': 'name',
             'label': ('<span style="color: blue;">ID</span>'),
             'fieldtype': 'Data',
-            #'options':"Issue",         
+            #'options':"Issue",
 			'width':'130',
             'style': 'background-color: yellow; color: black;'
-           
-            
+
+
         },
         {
 			'fieldname': 'resolution_date',
@@ -195,11 +196,11 @@ def get_columns():
         {
 			'fieldname': 'quantity',
             'label': ('Quantity'),
-            'fieldtype': 'Float',
+            'fieldtype': 'Int',
             #'align':'left',
 			'width':'90'
         },
-        
+
         {
 			'fieldname': 'site',
             'label': ('Site/Department'),
@@ -240,7 +241,7 @@ def get_columns():
             'align':'left'
             #'options': 'Account'
         },
-      
+
         {
 			'fieldname': 'subject',
             'label': ('Remarks'),
@@ -271,7 +272,7 @@ def get_columns():
         #     'align':'left',
 		# 	'width':'90'
         # },
-      
+
         # {
 		# 	'fieldname': 'type',
         #     'label': ('Status'),
@@ -279,7 +280,7 @@ def get_columns():
         #     'align':'left',
 		# 	'width':'120'
         # },
-       
+
         # {
 		# 	'fieldname': 'rate',
         #     'label': ('Rate'),
@@ -294,7 +295,7 @@ def get_columns():
         #     #'align':'left',
 		# 	'width':'90'
         # }
-     
+
 	]
 
 # def get_cs_data(filters):
