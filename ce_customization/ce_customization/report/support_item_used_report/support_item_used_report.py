@@ -100,7 +100,7 @@ WITH CTENote (name, resolution_date, nepali_miti, item_name_, quantity, site, cu
         so.date_ as resolution_date,
         sa.nepali_miti COLLATE utf8mb4_unicode_ci,
         CONCAT(si.particular, CASE WHEN si.item_status_ = 'old' THEN CONCAT(' (', si.item_status_, ')') ELSE '' END) COLLATE utf8mb4_unicode_ci as item_name_,
-        CAST(si.quantity AS UNSIGNED) as quantity,
+        CAST(si.quantity_ AS UNSIGNED) as quantity,
         CONCAT(so.from_, " To ", so.to_) COLLATE utf8mb4_unicode_ci as site,
         so.from_ COLLATE utf8mb4_unicode_ci as custom_item_used_from_site,
         si.user_name_ COLLATE utf8mb4_unicode_ci as user_name,
